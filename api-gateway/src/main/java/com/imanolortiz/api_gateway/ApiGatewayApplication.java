@@ -1,13 +1,13 @@
-package com.imanolortiz.ejercicio3;
+package com.imanolortiz.api_gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Ejercicio3Application {
+public class ApiGatewayApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Ejercicio3Application.class, args);
+		SpringApplication.run(ApiGatewayApplication.class, args);
 	}
 
 }

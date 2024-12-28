@@ -1,10 +1,10 @@
-package com.imanolortiz.ejercicio3;
+package com.imanolortiz.api_gateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Ejercicio3ApplicationTests {
+class ApiGatewayApplicationTests {
 
 	@Test
 	void contextLoads() {
