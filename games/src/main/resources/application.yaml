@@ -1,0 +1,13 @@
+spring:
+  port: 8080
+  datasource:
+    url: jdbc:postgresql://localhost:5432/games-service
+    username: postgres
+    password: ""
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    hibernate:
+      ddl-auto: update
