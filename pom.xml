@@ -30,6 +30,7 @@
 	<modules>
 		<module>api-gateway</module>
 		<module>games</module>
+		<module>users</module>
 	</modules>
 
 	<properties>
