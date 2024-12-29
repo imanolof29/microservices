@@ -9,7 +9,7 @@ import java.util.Date;
 @Service
 public class JwtUtils {
 
-    private final String secretKey = "";
+    private final String secretKey = "isugv9egrcieubviugewfivbckwefbviuwebrvywgcuybiugeyucgiqeguyiewgicugeuwygcyuevwuycvuyewvfcuyfgqwuyefdguqwyefgduyqwfgeiuywqhecofibqwiuegiuyqwegfuiqwegfiugqweiufygq2uyefuyqwrgfiuyqwegvfuewvgfuy";
 
     public Claims getClaims(String token){
         return Jwts.parser()
