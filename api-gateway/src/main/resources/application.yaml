@@ -4,24 +4,24 @@ spring:
       routes:
         - id: auth-route
           uri: http://localhost:8080
-          predicate:
+          predicates:
             - Path=/v1/auth/**
         - id: users-route
           uri: http://localhost:8081
-          predicate:
+          predicates:
             - Path=/v1/user/**
           filters:
-            - AuthenticationFilter
+            - Name=AuthenticationFilter
         - id: games-route
           uri: http://localhost:8082
-          predicate:
+          predicates:
             - Path=/v1/game/**
           filters:
-            - AuthenticationFilter
+            - Name=AuthenticationFilter
   endpoints:
     web:
       exposure:
-        includes: "*"
+        include: "*"
   endpoint:
     health:
       show-details: always
@@ -29,3 +29,4 @@ spring:
       enabled: true
 server:
   port: 8083
+
