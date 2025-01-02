@@ -42,7 +42,7 @@ public class GameController implements GameApi {
     }
 
     @Override
-    public ResponseEntity<Void> updateGame(Long gameId, @RequestBody UpdateGameDto dto, String userid) {
+    public ResponseEntity<Void> updateGame(Long gameId, @RequestBody UpdateGameDto dto, String userId) {
         gameService.updateGame(gameId, dto, userId);
         return ResponseEntity.noContent().build();
     }

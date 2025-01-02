@@ -11,13 +11,15 @@ spring:
           predicates:
             - Path=/v1/user/**
           filters:
-            - Name=AuthenticationFilter
+            - name: AuthenticationFilter
+
         - id: games-route
           uri: http://localhost:8082
           predicates:
             - Path=/v1/game/**
           filters:
-            - Name=AuthenticationFilter
+            - name: AuthenticationFilter
+
   endpoints:
     web:
       exposure:
