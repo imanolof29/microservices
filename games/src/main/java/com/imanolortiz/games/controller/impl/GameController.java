@@ -26,8 +26,8 @@ public class GameController implements GameApi {
     }
 
     @Override
-    public ResponseEntity<GameDto> createGame(CreateGameDto dto) {
-        return ResponseEntity.ok(gameService.createGame(dto));
+    public ResponseEntity<GameDto> createGame(CreateGameDto dto, String userId) {
+        return ResponseEntity.ok(gameService.createGame(dto, userId));
     }
 
     @Override
@@ -36,14 +36,14 @@ public class GameController implements GameApi {
     }
 
     @Override
-    public ResponseEntity<Void> deleteGame(Long gameId) {
-        gameService.deleteGame(gameId);
+    public ResponseEntity<Void> deleteGame(Long gameId, String userId) {
+        gameService.deleteGame(gameId, userId);
         return ResponseEntity.noContent().build();
     }
 
     @Override
-    public ResponseEntity<Void> updateGame(Long gameId, @RequestBody UpdateGameDto dto) {
-        gameService.updateGame(gameId, dto);
+    public ResponseEntity<Void> updateGame(Long gameId, @RequestBody UpdateGameDto dto, String userid) {
+        gameService.updateGame(gameId, dto, userId);
         return ResponseEntity.noContent().build();
     }
 }

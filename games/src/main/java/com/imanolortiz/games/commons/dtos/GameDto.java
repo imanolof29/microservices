@@ -13,4 +13,6 @@ public class GameDto {
 
     private String name;
 
+    private String userId;
+
 }

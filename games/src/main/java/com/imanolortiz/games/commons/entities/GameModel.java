@@ -19,4 +19,6 @@ public class GameModel {
 
     private String name;
 
+    private String userId;
+
 }

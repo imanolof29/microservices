@@ -16,15 +16,15 @@ public interface GameApi {
     ResponseEntity<List<GameDto>> listGames();
 
     @PostMapping(value = "create")
-    ResponseEntity<GameDto> createGame(@RequestBody CreateGameDto dto);
+    ResponseEntity<GameDto> createGame(@RequestBody CreateGameDto dto, @RequestHeader("userIdRequest") String userId);
 
     @GetMapping(value = "/{gameId}")
     ResponseEntity<GameDto> getGame(@PathVariable Long gameId);
 
     @DeleteMapping(value = "/{gameId}")
-    ResponseEntity<Void> deleteGame(@PathVariable Long gameId);
+    ResponseEntity<Void> deleteGame(@PathVariable Long gameId, @RequestHeader("userIdRequest") String userId);
 
     @PutMapping(value = "/{gameId}")
-    ResponseEntity<Void> updateGame(@PathVariable Long gameId, @RequestBody UpdateGameDto dto);
+    ResponseEntity<Void> updateGame(@PathVariable Long gameId, @RequestBody UpdateGameDto dto, @RequestHeader("userIdRequest") String userId);
 
 }
