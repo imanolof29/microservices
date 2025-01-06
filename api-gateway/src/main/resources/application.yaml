@@ -12,7 +12,6 @@ spring:
             - Path=/v1/user/**
           filters:
             - name: AuthenticationFilter
-
         - id: games-route
           uri: http://localhost:8082
           predicates:
@@ -29,6 +28,6 @@ spring:
       show-details: always
     gateway:
       enabled: true
+
 server:
   port: 8083
-

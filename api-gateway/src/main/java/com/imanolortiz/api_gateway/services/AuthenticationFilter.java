@@ -24,39 +24,54 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
     }
 
     @Override
-    public GatewayFilter apply(AuthenticationFilter.Config config) {
-        return ((exchange, chain) -> {
-            var request = exchange.getRequest();
-            var path = request.getURI().getPath();
-            ServerHttpRequest serverHttpRequest = null;
-            if(validator.isSecured.test(request)){
-                if(authMissing(request)){
+    public GatewayFilter apply(Config config) {
+        return (exchange, chain) -> {
+            ServerHttpRequest request = exchange.getRequest();
+            String path = request.getURI().getPath();
+
+            System.out.println("Processing request for path: " + path);
+            System.out.println("Is secured? " + validator.isSecured.test(request));
+            System.out.println("Headers: " + request.getHeaders());
+
+            if (validator.isSecured.test(request)) {
+                System.out.println("Secured path: " + path);
+
+                if (authMissing(request)) {
+                    System.out.println("Authorization header missing for path: " + path);
                     return onError(exchange, HttpStatus.UNAUTHORIZED);
                 }
-                String authHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
-                if(authHeader != null && authHeader.startsWith("Bearer ")){
+
+                String authHeader = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
+                if (authHeader != null && authHeader.startsWith("Bearer ")) {
                     authHeader = authHeader.substring(7);
-                }else{
-                    onError(exchange, HttpStatus.UNAUTHORIZED);
-                }
-
-                if(jwtUtils.isExpired(authHeader)){
+                } else {
+                    System.out.println("Invalid authorization header for path: " + path);
                     return onError(exchange, HttpStatus.UNAUTHORIZED);
                 }
 
-                serverHttpRequest = exchange.getRequest()
-                        .mutate()
-                        .header("userIdRequest", jwtUtils.extractUserId(authHeader).toString())
+                if (jwtUtils.isExpired(authHeader)) {
+                    System.out.println("Token expired for path: " + path);
+                    return onError(exchange, HttpStatus.UNAUTHORIZED);
+                }
+
+                String userId = jwtUtils.extractUserId(authHeader).toString();
+                ServerHttpRequest mutatedRequest = request.mutate()
+                        .header("userIdRequest", userId)
                         .build();
+
+                return chain.filter(exchange.mutate().request(mutatedRequest).build());
             }
-            return chain.filter(exchange.mutate().request(serverHttpRequest).build());
-        });
+
+            System.out.println("Public path: " + path);
+            return chain.filter(exchange);
+        };
     }
+
 
     private Mono<Void> onError(ServerWebExchange exchange, HttpStatus httpStatus){
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(httpStatus);
-        return null ;
+        return response.setComplete();
     }
 
     private boolean authMissing(ServerHttpRequest request){
